@@ -1,43 +1,35 @@
+import React, { useState } from "react";
+import iconArrow from "./assets/images/icon-arrow.svg";
+import Input from "./components/Input.jsx";
+
+export const TimeContext = React.createContext();
+
 function App() {
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+
+  const data = {
+    Day: [day, setDay],
+    Month: [month, setMonth],
+    Year: [year, setYear],
+  };
+
   return (
     <>
-      <div className="mx-5 mb-6 mt-20 rounded-3xl bg-white px-3 py-10">
-        <div className="flex gap-2 p-4">
-          <div className="flex flex-col">
-            <label htmlFor="day" className="font-bold uppercase opacity-50">
-              Day
-            </label>
-            <input
-              type="number"
-              name="day"
-              id="day"
-              className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="month" className="font-bold uppercase opacity-50">
-              Month
-            </label>
-            <input
-              type="number"
-              name="month"
-              id="month"
-              className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="year" className="font-bold uppercase opacity-50">
-              Year
-            </label>
-            <input
-              type="number"
-              name="year"
-              id="year"
-              className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold"
+      <TimeContext.Provider value={data}>
+        <div className="mx-5 mb-6 mt-20 rounded-3xl bg-white px-3 py-10">
+          <Input />
+          <div className="relative" id="image-box">
+            {/* <div className="absolute top-1/2 z-0 w-full border border-black"></div> */}
+            <img
+              className="z-10 mx-auto rounded-full bg-purple-900 p-4 opacity-100"
+              src={iconArrow}
+              alt="image"
             />
           </div>
         </div>
-      </div>
+      </TimeContext.Provider>
     </>
   );
 }
