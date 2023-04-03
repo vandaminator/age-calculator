@@ -10,45 +10,63 @@ function Input({}) {
   const [year, setYear] = Year;
 
   return (
-    <div className="flex gap-2 p-4">
+    <div className="flex gap-2 p-4 lg:w-3/5">
       <div className="flex flex-col">
         <label htmlFor="day" className="font-bold uppercase opacity-50">
           Day
         </label>
         <input
+          placeholder="DD"
           type="number"
           name="day"
           id="day"
-          className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold"
+          className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold hover:border-purple-900 active:border-purple-900"
           value={day}
-          onChange={({ target }) => setDay(target.value)}
+          onChange={({ target }) => {
+            let { value } = target;
+            value = value.slice(0, 2);
+            setDay(value);
+          }}
         />
+        <p className="text-sm text-red-400" id="error-day"></p>
       </div>
       <div className="flex flex-col">
         <label htmlFor="month" className="font-bold uppercase opacity-50">
           Month
         </label>
         <input
+          placeholder="MM"
           type="number"
           name="month"
           id="month"
-          className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold"
+          className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold hover:border-purple-900 active:border-purple-900"
           value={month}
-          onChange={({ target }) => setMonth(target.value)}
+          onChange={({ target }) => {
+            let { value } = target;
+            value = value.slice(0, 2);
+            setMonth(value);
+          }}
         />
+        <p className="text-sm text-red-400" id="error-month"></p>
       </div>
       <div className="flex flex-col">
         <label htmlFor="year" className="font-bold uppercase opacity-50">
           Year
         </label>
         <input
+          placeholder="YYYY"
           type="number"
           name="year"
           id="year"
-          className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold"
+          className="decoration-none w-full rounded-lg border-2 pl-3 text-[32px] font-bold hover:border-purple-900 active:border-purple-900"
           value={year}
-          onChange={({ target }) => setYear(target.value)}
+          onChange={({ target }) => {
+            let { value } = target;
+            value = value.slice(0, 4);
+            setYear(value);
+          }}
         />
+        <p className="text-sm text-red-400" id="error-year"></p>
       </div>
     </div>
   );
