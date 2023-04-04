@@ -12,12 +12,16 @@ function Input({}) {
   return (
     <div className="flex gap-2 p-4 lg:w-3/5">
       <div className="flex flex-col">
-        <label htmlFor="day" className="font-bold uppercase opacity-50">
+        <label
+          htmlFor="day"
+          className="font-bold uppercase opacity-50"
+          id="label-day"
+        >
           Day
         </label>
         <input
           placeholder="DD"
-          type="number"
+          type="text"
           name="day"
           id="day"
           className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold hover:border-purple-900 active:border-purple-900"
@@ -31,12 +35,16 @@ function Input({}) {
         <p className="text-sm text-red-400" id="error-day"></p>
       </div>
       <div className="flex flex-col">
-        <label htmlFor="month" className="font-bold uppercase opacity-50">
+        <label
+          htmlFor="month"
+          className="font-bold uppercase opacity-50"
+          id="label-month"
+        >
           Month
         </label>
         <input
           placeholder="MM"
-          type="number"
+          type="text"
           name="month"
           id="month"
           className="decoration-none w-full rounded-lg border-2 pl-5 text-[32px] font-bold hover:border-purple-900 active:border-purple-900"
@@ -50,12 +58,16 @@ function Input({}) {
         <p className="text-sm text-red-400" id="error-month"></p>
       </div>
       <div className="flex flex-col">
-        <label htmlFor="year" className="font-bold uppercase opacity-50">
+        <label
+          htmlFor="year"
+          className="font-bold uppercase opacity-50"
+          id="label-year"
+        >
           Year
         </label>
         <input
           placeholder="YYYY"
-          type="number"
+          type="text"
           name="year"
           id="year"
           className="decoration-none w-full rounded-lg border-2 pl-3 text-[32px] font-bold hover:border-purple-900 active:border-purple-900"
