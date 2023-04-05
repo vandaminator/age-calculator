@@ -1,29 +1,29 @@
 import { useContext } from "react";
-import { TimeContext } from "../App";
+import { DisplayContext } from "../App";
 
 function Display() {
-  const data = useContext(TimeContext);
+  const data = useContext(DisplayContext);
   const { Day, Month, Year } = data;
 
-  const [day, setDay] = Day;
-  const [month, setMonth] = Month;
-  const [year, setYear] = Year;
+  const [day] = Day;
+  const [month] = Month;
+  const [year] = Year;
   return (
     <>
       <div className="mb-5 mt-10">
-        <p className="min-[360px]:text-6xl text-5xl font-extrabold sm:text-7xl md:text-8xl lg:text-9xl">
+        <p className="text-5xl font-extrabold min-[360px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
           <span className="mr-2 text-purple-900">
             {year === "" ? "- -" : year}
           </span>
           years
         </p>
-        <p className="min-[360px]:text-6xl text-5xl font-extrabold sm:text-7xl md:text-8xl lg:text-9xl">
+        <p className="text-5xl font-extrabold min-[360px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl">
           <span className="mr-2 text-purple-900">
             {month === "" ? "- -" : month}
           </span>
           months
         </p>
-        <p className="min-[360px]:text-6xl text-5xl font-extrabold sm:text-7xl md:text-8xl lg:text-9xl ">
+        <p className="text-5xl font-extrabold min-[360px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl ">
           <span className="mr-2 text-purple-900">
             {day === "" ? "- -" : day}
           </span>

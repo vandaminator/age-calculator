@@ -5,16 +5,27 @@ import ButtonCalcu from "./components/ButtonCalcu.jsx";
 import Display from "./components/Display.jsx";
 
 export const TimeContext = React.createContext();
+export const DisplayContext = React.createContext();
 
 function App() {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
 
+  const [displayDay, setDisplayDay] = useState("");
+  const [displayMonth, setDisplayMonth] = useState("");
+  const [displayYear, setDisplayYear] = useState("");
+
   const data = {
     Day: [day, setDay],
     Month: [month, setMonth],
     Year: [year, setYear],
+  };
+
+  const displayData = {
+    Day: [displayDay, setDisplayDay],
+    Month: [displayMonth, setDisplayMonth],
+    Year: [displayYear, setDisplayYear],
   };
 
   const currentDate = new Date();
@@ -26,10 +37,24 @@ function App() {
     day: currentDate.getDate(),
   };
 
+  const CalCuTime = () => {
+    const monthIndex = +month - 1;
+    const userDate = new Date(+year, monthIndex, +day);
+    const diff = currentDate - userDate;
+    const diffDate = new Date(diff);
+
+    const resultYear = Math.abs(diffDate.getUTCFullYear() - 1970);
+    const resultMonth = diffDate.getUTCMonth();
+    const resultDay = diffDate.getUTCDay();
+
+    setDisplayDay(resultDay);
+    setDisplayMonth(resultMonth);
+    setDisplayYear(resultYear);
+  };
+
   const checkValidate = (year, month, day) => {
-    
     const monthIndex = month - 1;
-    
+
     const userDate = new Date(year, monthIndex, day);
 
     const checkYear = userDate.getFullYear();
@@ -70,6 +95,12 @@ function App() {
       +month === currentDateInfo.month &&
       +day > currentDateInfo.day;
 
+    // if user input is in the past then false
+    const oneIsFuture = yearIsFuture | monthIsFuture | dayIsFuture;
+
+    // if user gave the correct inputs then true so that it can be used to validate time format
+    const allCorrect = !(oneIsEmpty | oneIsNotFormat | oneIsFuture);
+
     // used to give messege if user did error
     const errorDay = document.getElementById("error-day");
     const errorMonth = document.getElementById("error-month");
@@ -97,23 +128,28 @@ function App() {
     errorYear.innerHTML = "";
 
     // these check if users date is in the future
-    if (yearIsFuture) {
-      inputYearList.add("border-red-400");
-      labelYearList.add("text-red-500");
-      // showing user error msg for this
-      errorYear.innerHTML = "must be in the past";
-    } else if (monthIsFuture) {
-      inputMonthList.add("border-red-400");
-      labelMonthList.add("text-red-500");
-      // showing user error msg for this
-      errorMonth.innerHTML = "must be in the past";
-    } else if (dayIsFuture) {
-      inputDayList.add("border-red-400");
-      labelDayList.add("text-red-500");
-      // showing user error msg for this
-      errorDay.innerHTML = "must be in the past";
+    if (oneIsFuture) {
+      // give error messege to the field which makes user item in future
+      if (dayIsFuture) {
+        // using tailwind the field turns red if error
+        inputDayList.add("border-red-400");
+        labelDayList.add("text-red-500");
+        // showing user error msg for this
+        errorDay.innerHTML = "must be in the past";
+      }
+      if (monthIsFuture) {
+        inputMonthList.add("border-red-400");
+        labelMonthList.add("text-red-500");
+        // showing user error msg for this
+        errorMonth.innerHTML = "must be in the past";
+      }
+      if (yearIsFuture) {
+        inputYearList.add("border-red-400");
+        labelYearList.add("text-red-500");
+        // showing user error msg for this
+        errorYear.innerHTML = "must be in the past";
+      }
     }
-
     if (oneIsNotFormat) {
       // give error messege to the field not in format
       if (dayIsNotFormat) {
@@ -158,6 +194,21 @@ function App() {
         errorYear.innerHTML = "this field is required";
       }
     }
+    // when user inputs data in the right way
+    if (allCorrect) {
+      const userDateInValid = !checkValidate(+year, +month, +day);
+      if (userDateInValid) {
+        inputYearList.add("border-red-400");
+        labelYearList.add("text-red-500");
+        inputMonthList.add("border-red-400");
+        labelMonthList.add("text-red-500");
+        inputDayList.add("border-red-400");
+        labelDayList.add("text-red-500");
+        errorDay.innerHTML = "must be a valid date";
+      } else {
+        CalCuTime();
+      }
+    }
   };
 
   return (
@@ -166,7 +217,9 @@ function App() {
         <div className="mx-5 mb-6 mt-20 rounded-3xl bg-white px-3 py-10 lg:mx-auto lg:w-[920px]">
           <Input />
           <ButtonCalcu iconArrow={iconArrow} onClick={handleClick} />
-          <Display />
+          <DisplayContext.Provider value={displayData}>
+            <Display />
+          </DisplayContext.Provider>
         </div>
       </TimeContext.Provider>
     </>
