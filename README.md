@@ -40,8 +40,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/vandaminator/age-calculator/](https://github.com/vandaminator/age-calculator/)
+- Live Site URL: [https://steady-jelly-431cb9.netlify.app/](https://steady-jelly-431cb9.netlify.app/)
 
 ## My process
 
